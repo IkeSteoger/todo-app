@@ -1,6 +1,19 @@
-function Footer(props){
+import { createStyles } from "@mantine/core";
+
+const useStyles = createStyles((theme) => ({
+    footer: {
+      textAlign: 'right',
+      width: '80%',
+      margin: 'auto',
+    //   fontFamily: 'apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif'
+    }
+  }));
+
+function Footer(){
+    const { classes } = useStyles();
+
     return(
-        <footer data-testid="footer">
+        <footer className={classes.footer} data-testid="footer">
             Ike Steoger 2023
         </footer>
     )

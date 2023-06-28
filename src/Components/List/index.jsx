@@ -1,16 +1,16 @@
 import { useContext, useState } from 'react';
-import { Pagination } from '@mantine/core';
 import { SettingsContext } from '../../Context/Settings';
+import { Pagination, Card, Badge} from '@mantine/core';
 
-function List(props){
-    const { pageItems, completed, sort } = useContext(SettingsContext);
+function List({list, toggleComplete}){
+    const { pageItems, showCompleted, sort } = useContext(SettingsContext);
     const [currentPage, setPage] = useState(1)
-    const pages = Math.ceil(props.list.length / pageItems)
-
-    const displayedItems = completed
-    ? props.list.filter((item) => !item.complete)
-    : props.list;
-
+    
+    const displayedItems = showCompleted
+    ? list
+    : list.filter((item) => !item.complete);
+    
+    const pages = Math.ceil(displayedItems.length / pageItems)
     const firstItem = (currentPage - 1) * pageItems;
     const lastItem = currentPage * pageItems;
     const finalItems = displayedItems.slice(firstItem, lastItem);
@@ -19,13 +19,12 @@ function List(props){
     return(
       <>
         {finalItems.map(item => (
-        <div key={item.id} >
-          <p>{item.text}</p>
-          <p><small>Assigned to: {item.assignee}</small></p>
-          <p><small>Difficulty: {item.difficulty}</small></p>
-          <div onClick={() => props.toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
+        <Card shadow="sm" padding="lg" radius="md" withBorder key={item.id} >
+          <Badge color="red" variant="filled" onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</Badge>   {item.assignee}
           <hr />
-        </div>
+          <p>{item.text}</p>
+          <p><small>Difficulty: {item.difficulty}</small></p>
+        </Card>
       ))}
       <Pagination value={currentPage} onChange={setPage} total={pages} />
       </>

@@ -7,6 +7,7 @@
 ### Problem Domain
 
 - In Phase 1, we’re going to perform some refactoring of a Todo application built by another team. This application mixes application state and user settings at the top level and passes things around. It was a good proof of concept, but we need to make this production ready.
+- In Phase 2, we’re going to extend the functionality of our application by allowing the user to make some decisions on how they would like the application to function. Specifically, we’ll let them make changes to 2 settings. Implement the Context API to make some basic application settings available to components. Provide the users with a form where they can change the values for those settings. Save the users choices in Local Storage. Retrieve their preferences from Local Storage and apply them to the application on startup.
 
 ### Links and Resources
 
@@ -46,4 +47,10 @@ For now I have none and do not require one -->
 
 #### UMLs
 
-![UML](./assets/uml.png)
+##### UML Lab 32
+
+![UML32](./assets/uml32.png)
+
+##### UML Lab 31
+
+![UML31](./assets/uml31.png)

@@ -1,13 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import useForm from '../../hooks/form';
-import Header from '../Header';
-import Footer from '../Footer';
 import List from '../List';
-import { Button, TextInput, Grid, Slider} from '@mantine/core';
+import { Button, TextInput, Grid, Slider, Card, createStyles, CardSection } from '@mantine/core';
 import { v4 as uuid } from 'uuid';
+
+const useStyles = createStyles((theme) => ({
+  h1: {
+    backgroundColor: theme.colors.gray[8],
+    color: 'white',
+    fontSize: '20px',
+    fontWeight: 'bold',
+    margin: '16px auto',
+    padding: '16px',
+    width: '80%',
+    // fontFamily: 'apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif',
+  }
+}));
 
 const Todo = () => {
 
+  const { classes } = useStyles();
   const [defaultValues] = useState({
     difficulty: 3,
   });
@@ -51,9 +63,10 @@ const Todo = () => {
 
   return (
     <>
-      <Header incomplete={incomplete} />
+      <h1 data-testid="header-h1" className={classes.h1}>To Do List: {incomplete} items pending</h1>
       {/* leave the form code inside of the Todo Component */}
       <Grid>
+        <Card shadow="sm" padding="lg" radius="md" withBorder>
         <form onSubmit={handleSubmit}>
           <h2>Add To Do Item</h2>
 
@@ -70,22 +83,24 @@ const Todo = () => {
             <span>Difficulty</span>
             <Slider
                   marks={[
-                    { value: 20, label: '1' },
-                    { value: 40, label: '2' },
-                    { value: 60, label: '3' },
-                    { value: 80, label: '4' },
-                    { value: 100, label: '5' },
+                    { value: 20 },
+                    { value: 40 },
+                    { value: 60 },
+                    { value: 80 },
+                    { value: 100 },
                   ]}
-                  onChange={handleChange} defaultValue={defaultValues.difficulty} type="range" min={1} max={5} name="difficulty" />
+                  onChange={handleChange} defaultValue={defaultValues.difficulty} type="range" min={1} max={5} name="difficulty"/>
           </label>
 
           <label>
             <Button type="submit">Add Item</Button>
           </label>
         </form>
-      </Grid>
-      <List list={list} toggleComplete={toggleComplete} />
-      <Footer />
+        </Card>
+        <Card >
+          <List list={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
+        </Card>
+        </Grid>
     </>
   );
 };
