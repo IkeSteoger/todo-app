@@ -16,12 +16,12 @@
 
 ### Collaborators
 
-Ryan Gallaway
-Reece Renninger
-Josh Coffey
-<!-- Nick Mullaney
-Kaeden O'meara
-Ryan Eastman -->
+Ryan Gallaway  
+Reece Renninger  
+Josh Coffey  
+Nick Mullaney  
+Kaeden O'meara  
+Ryan Eastman
 
 ### Setup
 
@@ -37,7 +37,7 @@ For now I have none and do not require one -->
 
 #### Features / Routes
 
-- A website that can use REST functions on any API that you put a link in for.
+- A interactive To Do list using Context API
 <!-- - GET : `/hello` - specific route to hit -->
 
 #### Tests
