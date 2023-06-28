@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useForm from '../../hooks/form';
 import List from '../List';
-import { Button, TextInput, Grid, Slider, Card, createStyles, CardSection } from '@mantine/core';
+import { Button, TextInput, Grid, Slider, Card, createStyles } from '@mantine/core';
 import { v4 as uuid } from 'uuid';
 
 const useStyles = createStyles((theme) => ({
@@ -13,7 +13,7 @@ const useStyles = createStyles((theme) => ({
     margin: '16px auto',
     padding: '16px',
     width: '80%',
-    // fontFamily: 'apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif',
+    fontFamily: 'apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif',
   }
 }));
 

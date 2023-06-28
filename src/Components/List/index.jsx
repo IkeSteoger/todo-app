@@ -3,7 +3,7 @@ import { SettingsContext } from '../../Context/Settings';
 import { Pagination, Card, Badge} from '@mantine/core';
 
 function List({list, toggleComplete}){
-    const { pageItems, showCompleted, sort } = useContext(SettingsContext);
+    const { pageItems, showCompleted } = useContext(SettingsContext);
     const [currentPage, setPage] = useState(1)
     
     const displayedItems = showCompleted
@@ -20,7 +20,7 @@ function List({list, toggleComplete}){
       <>
         {finalItems.map(item => (
         <Card shadow="sm" padding="lg" radius="md" withBorder key={item.id} >
-          <Badge color="red" variant="filled" onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</Badge>   {item.assignee}
+          <Badge color="green" variant="filled" onClick={() => toggleComplete(item.id)}>Pending</Badge>   {item.assignee}
           <hr />
           <p>{item.text}</p>
           <p><small>Difficulty: {item.difficulty}</small></p>

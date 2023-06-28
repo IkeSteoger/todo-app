@@ -32,7 +32,7 @@ describe('App Tests', ()  => {
 
     expect(footer).toBeTruthy();
     expect(footer).toBeInTheDocument();
-    expect(footer).toHaveTextContent('Ike Steoger 2023');
+    expect(footer).toHaveTextContent('©2023 Ike Steoger');
   })
 
 })

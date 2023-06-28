@@ -14,7 +14,7 @@ function Footer(){
 
     return(
         <footer className={classes.footer} data-testid="footer">
-            Ike Steoger 2023
+           ©2023 Ike Steoger
         </footer>
     )
 }
