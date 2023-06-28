@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SettingsForm from './Components/SettingsForm';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
+// import './App.scss';
 
 export default class App extends React.Component {
   render() {

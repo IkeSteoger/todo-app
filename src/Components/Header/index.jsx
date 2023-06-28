@@ -9,12 +9,10 @@ const useStyles = createStyles((theme) => ({
     color: theme.colors.gray[0],
     display: 'flex',
     padding: theme.spacing.sm,
-    fontSize: theme.fontSizes.sm,
-    // fontFamily: 'apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif'
+    fontSize: theme.fontSizes.md,
     },
     link: {
         padding: theme.spacing.sm,
-        // fontFamily: 'apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif'
     }
 }));
 
