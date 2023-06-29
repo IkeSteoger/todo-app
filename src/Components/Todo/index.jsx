@@ -65,41 +65,45 @@ const Todo = () => {
     <>
       <h1 data-testid="header-h1" className={classes.h1}>To Do List: {incomplete} items pending</h1>
       {/* leave the form code inside of the Todo Component */}
-      <Grid>
-        <Card shadow="sm" padding="lg" radius="md" withBorder>
-        <form onSubmit={handleSubmit}>
-          <h2>Add To Do Item</h2>
+      <Grid style={{width: '80%', margin: 'auto'}}>
+        <Grid.Col span={6}>
+          <Card shadow="sm" padding="lg" radius="md" withBorder>
+          <form onSubmit={handleSubmit}>
+            <h2>Add To Do Item</h2>
 
-          <label>
-            <span>To Do Item</span>
-            <TextInput onChange={handleChange} name="text" type="text" placeholder="Item Details" />
-          </label>
+            <label>
+              <span>To Do Item</span>
+              <TextInput onChange={handleChange} name="text" type="text" placeholder="Item Details" />
+            </label>
 
-          <label>
-            <span>Assigned To</span>
-            <TextInput onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
-          </label>
-          <label>
-            <span>Difficulty</span>
-            <Slider
-                  marks={[
-                    { value: 20 },
-                    { value: 40 },
-                    { value: 60 },
-                    { value: 80 },
-                    { value: 100 },
-                  ]}
-                  onChange={handleChange} defaultValue={defaultValues.difficulty} type="range" min={1} max={5} name="difficulty"/>
-          </label>
+            <label>
+              <span>Assigned To</span>
+              <TextInput onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
+            </label>
+            <label>
+              <span>Difficulty</span>
+              <Slider
+                    marks={[
+                      { value: 20 },
+                      { value: 40 },
+                      { value: 60 },
+                      { value: 80 },
+                      { value: 100 },
+                    ]}
+                    onChange={handleChange} defaultValue={defaultValues.difficulty} type="range" min={1} max={5} name="difficulty"/>
+            </label>
 
-          <label>
-            <Button type="submit">Add Item</Button>
-          </label>
-        </form>
-        </Card>
-        <Card >
-          <List list={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
-        </Card>
+            <label>
+              <Button type="submit">Add Item</Button>
+            </label>
+          </form>
+          </Card>
+        </Grid.Col>
+        <Grid.Col span={6}>
+          <Card shadow="sm" padding="lg" radius="md" withBorder >
+            <List list={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
+          </Card>
+        </Grid.Col>
         </Grid>
     </>
   );

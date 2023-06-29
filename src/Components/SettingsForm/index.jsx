@@ -1,61 +1,83 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { SettingsContext } from '../../Context/Settings';
-import { Switch, createStyles, Button, Card, Grid, TextInput, NumberInput } from '@mantine/core';
+import { Switch, createStyles, Button, Card, Grid, TextInput, NumberInput, Text } from '@mantine/core';
 import { IconSettings } from '@tabler/icons-react';
+import { When } from 'react-if';
 
 const useStyles = createStyles((theme) => ({
     h1: {
-      backgroundColor: theme.colors.gray[8],
-      color: 'white',
-      fontSize: '20px',
-      fontWeight: 'bold',
-      margin: '16px auto',
-      padding: '16px',
-      width: '80%',
-      fontFamily: 'apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif',
+        backgroundColor: theme.colors.gray[8],
+        color: theme.colors.gray[0],
+        fontSize: theme.fontSizes.lg,
+        fontWeight: 'bold',
+        margin: 'auto',
+        marginTop: theme.spacing.md,
+        marginBottom: theme.spacing.md,
+        padding: theme.spacing.md,
+        width: '80%',
+        fontFamily: 'apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif',
     },
     span: {
         fontWeight: '500',
-        fontSize: '14px',
+        fontSize: theme.fontSizes.sm,
         fontFamily: 'apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif',
     }
+}));
 
-  }));
-
-const SettingsForm = (event) => {
+const SettingsForm = () => {
     
-    const { pageItems, setPageItems, showCompleted, setShowCompleted, sort, setSort } = useContext(SettingsContext);
     const { classes } = useStyles();
+    const [show, setShow] = useState(false);
+    const { 
+        pageItems, 
+        setPageItems, 
+        showCompleted, 
+        setShowCompleted, 
+        sort, 
+        setSort,
+        saveLocally, 
+    } = useContext(SettingsContext);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        saveLocally();
+        setShow(true);
+        e.target.reset();
+    }
     
     return(
       <>
         <h1 className={classes.h1}><IconSettings />Manage Settings</h1>
-        <Grid>
-            <Card shadow="sm" padding="lg" radius="md" withBorder>
-                {/* ADD onSubmit HERE??? */}
-                <form>
-                    <h3>Update Settings</h3>
-                    <label>
-                        <Switch label='Show Completed ToDos'type="checkbox" name="completed" checked={showCompleted} onChange={(event) => setShowCompleted(event.target.checked)} />
-                    </label>
-                    <label>
-                        <span className={classes.span}>
-                            Items per page
-                        </span>
-                        <NumberInput placeholder={pageItems} onChange={(event) => setPageItems(event.target)} />
-                    </label>
-                    <label>
-                        <span className={classes.span}>
-                            Sort Keyword
-                        </span>
-                        <TextInput placeholder={sort} onChange={(event) => setSort(event.target.value)} />
-                    </label>
-                    <label>
-                        <Button type="submit">Show New Settings</Button>
-                    </label>
-                </form>
-            </Card>
-            </Grid>
+        <Grid style={{width: '80%', margin: 'auto'}}>
+            <Grid.Col span={6}>
+                <Card shadow="sm" padding="lg" radius="md" withBorder>
+                    <form onSubmit={handleSubmit}>
+                        <Text fontSize="xl" weight="bold">Update Settings</Text>
+                            <Switch 
+                                label="Show Completed ToDos" 
+                                checked={showCompleted} 
+                                onChange={(event) => setShowCompleted(event.target.checked)} />
+                            <span className={classes.span}>Items per page</span>
+                            <NumberInput 
+                                placeholder={pageItems} 
+                                onChange={setPageItems} />
+                            <span className={classes.span}>Sort Keyword</span>
+                            <TextInput placeholder={sort} onChange={(event) => setSort(event.target.value)} />
+                            <Button type="submit">Show New Settings</Button>
+                    </form>
+                </Card>
+            </Grid.Col>
+            <Grid.Col span={6}>
+                <When condition={show} >
+                    <Card  shadow="sm" padding="lg" radius="md" withBorder>
+                        <Text fontSize="xl" weight="bold">Updated Settings</Text>
+                        <Text>{showCompleted ? 'Show' : 'Hide'} Completed Todos</Text>
+                        <Text>Items Per Page: {pageItems}</Text>
+                        <Text>Sort Keyword: {sort}</Text>
+                    </Card>
+                </When>
+            </Grid.Col>
+        </Grid>
       </>
     )
 }
