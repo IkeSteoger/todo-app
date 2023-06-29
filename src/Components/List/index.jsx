@@ -10,7 +10,7 @@ function List({list, toggleComplete}){
     ? list
     : list.filter((item) => !item.complete);
     
-    const pages = Math.ceil(displayedItems.length / pageItems)
+    const pages = Math.ceil(list.length / pageItems)
     const firstItem = (currentPage - 1) * pageItems;
     const lastItem = currentPage * pageItems;
     const finalItems = displayedItems.slice(firstItem, lastItem);

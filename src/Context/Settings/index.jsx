@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const SettingsContext = React.createContext();
 
@@ -7,54 +7,18 @@ function SettingsProvider({ children }){
   const [showCompleted, setShowCompleted] = useState(false);
   const [sort, setSort] = useState('difficulty');
 
-  // useEffect(() => {
-  //   const pageItemData = JSON.parse(localStorage.getItem('pageItems'));
-  //   const showCompletedData = JSON.parse(localStorage.getItem('showCompleted'));
-  //   const sortData = JSON.parse(localStorage.getItem('sort'));
-
-  //   if(pageItemData){
-  //     setPageItems(pageItemData)
-  //   }
-  //   if(showCompletedData){
-  //     setShowCompleted(showCompletedData)
-  //   }
-  //   if(sortData){
-  //     setSort(sortData)
-  //   }
-  // }, [])
+  const saveLocally = () => {
+    localStorage.setItem('todo', JSON.stringify({pageItems, showCompleted, sort}));
+  }
 
   useEffect(() => {
-    const pageItemData = JSON.parse(localStorage.getItem('pageItems'));
-    if(pageItemData){
-      setPageItems(pageItemData)
-    }
-  }, [])
-
-  useEffect(() => {
-    const showCompletedData = JSON.parse(localStorage.getItem('showCompleted'));
-    if(showCompletedData){
-      setShowCompleted(showCompletedData)
-    }
-  }, [])
-
-  useEffect(() => {
-    const sortData = JSON.parse(localStorage.getItem('sort'));
-    if(sortData){
-      setSort(sortData)
-    }
-  }, [])
-
-  useEffect(() => {
-    localStorage.setItem('pageItem', JSON.stringify(pageItems))
-  }, [pageItems])
-
-  useEffect(() => {
-    localStorage.setItem('showCompleted', JSON.stringify(showCompleted))
-  }, [showCompleted])
-
-  useEffect(() => {
-    localStorage.setItem('sort', JSON.stringify(sort))
-  }, [sort])
+      let storage = JSON.parse(localStorage.getItem('todo'));
+      if(storage){
+        setPageItems(storage.pageItems);
+        setShowCompleted(storage.showCompleted);
+        setSort(storage.sort);
+      }
+    }, [])
 
   const values = {
     pageItems,
@@ -63,6 +27,7 @@ function SettingsProvider({ children }){
     setShowCompleted,
     sort,
     setSort,
+    saveLocally,
   }
 
   return(
