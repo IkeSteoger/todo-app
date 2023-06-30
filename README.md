@@ -9,6 +9,7 @@
 - In Phase 1, we’re going to perform some refactoring of a Todo application built by another team. This application mixes application state and user settings at the top level and passes things around. It was a good proof of concept, but we need to make this production ready.
 - In Phase 2, we’re going to extend the functionality of our application by allowing the user to make some decisions on how they would like the application to function. Specifically, we’ll let them make changes to 2 settings. Implement the Context API to make some basic application settings available to components. Provide the users with a form where they can change the values for those settings. Save the users choices in Local Storage. Retrieve their preferences from Local Storage and apply them to the application on startup.
 - In Phase 3, we’d like to extend the functionality of the application by requiring users be logged in to view items and also restrict access based on user type. The user stories from Phases 1, and 2 remain unchanged. For this phase, we are now adding the following new user stories.
+- In Phase 4, we will finalize the functionality of the application by connecting to live servers for login, authorization, and data access.
 
 > - As a user, I want to provide a way for other users to create new accounts.
 > - As a user, I want to provide a way for all users to login to their account.
@@ -16,6 +17,7 @@
 > - As a user, I want to ensure that only fellow users that are allowed to “create”, based on their user type, can add new To Do Items.
 > - As a user, I want to ensure that only fellow users that are allowed to “update”, based on their user type, can mark To Do Items complete.
 > - As a user, I want to ensure that only fellow users that are allowed to “delete”, based on their user type, can delete new To Do Items.
+
 
 ### Links and Resources
 
@@ -49,12 +51,21 @@ For now I have none and do not require one -->
 
 - A interactive To Do list using Context API, localStorage, and authorization.
 <!-- - GET : `/hello` - specific route to hit -->
+- POST : `/signin` - signin to get token
+- GET : `/https://api-js401.herokuapp.com/api/v1/todo` - gets all todos
+- POST : `/https://api-js401.herokuapp.com/api/v1/todo` - add new todo
+- PUT : `/https://api-js401.herokuapp.com/api/v1/todo/{id}` - update specific todo
+- DELETE : `/https://api-js401.herokuapp.com/api/v1/todo/{id}` - delete specific todo
 
 #### Tests
 
-- Run `npm test` to see tests running.
+- Run `npm test` to see tests running. They pass locally but not on Github.
 
 #### UMLs
+
+##### UML Lab 34
+
+![UML34](./assets/uml34.png)
 
 ##### UML Lab 33
 

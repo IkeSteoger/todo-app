@@ -11,12 +11,12 @@ describe('App Tests', ()  => {
   test('render a header element as expected', () => {
     render(
       <MantineProvider withGlobalStyles withNormalizeCSS>
-      <AuthProvider>
-        <SettingsProvider>
-          <App />
-        </SettingsProvider>
-      </AuthProvider>
-    </MantineProvider>
+        <AuthProvider>
+          <SettingsProvider>
+            <App />
+          </SettingsProvider>
+        </AuthProvider>
+      </MantineProvider>
     );
 
     let header = screen.getByTestId('header');
