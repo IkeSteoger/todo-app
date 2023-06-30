@@ -1,6 +1,6 @@
 # LAB - Class 31 / 32 / 33 / 34
 
-## Project: Context API
+## Project: Context API & Context API Behaviors with Authorization
 
 ### Author: Ike Steoger
 
@@ -8,6 +8,14 @@
 
 - In Phase 1, we’re going to perform some refactoring of a Todo application built by another team. This application mixes application state and user settings at the top level and passes things around. It was a good proof of concept, but we need to make this production ready.
 - In Phase 2, we’re going to extend the functionality of our application by allowing the user to make some decisions on how they would like the application to function. Specifically, we’ll let them make changes to 2 settings. Implement the Context API to make some basic application settings available to components. Provide the users with a form where they can change the values for those settings. Save the users choices in Local Storage. Retrieve their preferences from Local Storage and apply them to the application on startup.
+- In Phase 3, we’d like to extend the functionality of the application by requiring users be logged in to view items and also restrict access based on user type. The user stories from Phases 1, and 2 remain unchanged. For this phase, we are now adding the following new user stories.
+
+> - As a user, I want to provide a way for other users to create new accounts.
+> - As a user, I want to provide a way for all users to login to their account.
+> - As a user, I want to make sure that my To Do items are only viewable to users that have logged in with a valid account.
+> - As a user, I want to ensure that only fellow users that are allowed to “create”, based on their user type, can add new To Do Items.
+> - As a user, I want to ensure that only fellow users that are allowed to “update”, based on their user type, can mark To Do Items complete.
+> - As a user, I want to ensure that only fellow users that are allowed to “delete”, based on their user type, can delete new To Do Items.
 
 ### Links and Resources
 
@@ -19,10 +27,11 @@
 
 Ryan Gallaway  
 Reece Renninger  
-Josh Coffey  
-Nick Mullaney  
 Kaeden O'meara  
-Ryan Eastman
+Nick Mullaney  
+Ryan Eastman  
+Josh Coffey  
+Francisco Sanchez  
 
 ### Setup
 
@@ -38,7 +47,7 @@ For now I have none and do not require one -->
 
 #### Features / Routes
 
-- A interactive To Do list using Context API
+- A interactive To Do list using Context API, localStorage, and authorization.
 <!-- - GET : `/hello` - specific route to hit -->
 
 #### Tests
@@ -46,6 +55,10 @@ For now I have none and do not require one -->
 - Run `npm test` to see tests running.
 
 #### UMLs
+
+##### UML Lab 33
+
+![UML33](./assets/uml33.png)
 
 ##### UML Lab 32
 

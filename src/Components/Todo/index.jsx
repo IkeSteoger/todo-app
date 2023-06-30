@@ -3,6 +3,7 @@ import useForm from '../../hooks/form';
 import List from '../List';
 import { Button, TextInput, Grid, Slider, Card, createStyles } from '@mantine/core';
 import { v4 as uuid } from 'uuid';
+import Auth from '../Auth';
 
 const useStyles = createStyles((theme) => ({
   h1: {
@@ -67,37 +68,39 @@ const Todo = () => {
       {/* leave the form code inside of the Todo Component */}
       <Grid style={{width: '80%', margin: 'auto'}}>
         <Grid.Col span={6}>
-          <Card shadow="sm" padding="lg" radius="md" withBorder>
-          <form onSubmit={handleSubmit}>
-            <h2>Add To Do Item</h2>
+          <Auth capability={'create'}>
+            <Card shadow="sm" padding="lg" radius="md" withBorder>
+              <form onSubmit={handleSubmit}>
+                <h2>Add To Do Item</h2>
 
-            <label>
-              <span>To Do Item</span>
-              <TextInput onChange={handleChange} name="text" type="text" placeholder="Item Details" />
-            </label>
+                <label>
+                  <span>To Do Item</span>
+                  <TextInput onChange={handleChange} name="text" type="text" placeholder="Item Details" />
+                </label>
 
-            <label>
-              <span>Assigned To</span>
-              <TextInput onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
-            </label>
-            <label>
-              <span>Difficulty</span>
-              <Slider
-                    marks={[
-                      { value: 20 },
-                      { value: 40 },
-                      { value: 60 },
-                      { value: 80 },
-                      { value: 100 },
-                    ]}
-                    onChange={handleChange} defaultValue={defaultValues.difficulty} type="range" min={1} max={5} name="difficulty"/>
-            </label>
+                <label>
+                  <span>Assigned To</span>
+                  <TextInput onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
+                </label>
+                <label>
+                  <span>Difficulty</span>
+                  <Slider
+                        marks={[
+                          { value: 20 },
+                          { value: 40 },
+                          { value: 60 },
+                          { value: 80 },
+                          { value: 100 },
+                        ]}
+                        onChange={handleChange} defaultValue={defaultValues.difficulty} type="range" min={1} max={5} name="difficulty"/>
+                </label>
 
-            <label>
-              <Button type="submit">Add Item</Button>
-            </label>
-          </form>
-          </Card>
+                <label>
+                  <Button type="submit">Add Item</Button>
+                </label>
+              </form>
+            </Card>
+          </Auth>
         </Grid.Col>
         <Grid.Col span={6}>
           <Card shadow="sm" padding="lg" radius="md" withBorder >

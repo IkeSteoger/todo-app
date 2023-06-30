@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SettingsForm from './Components/SettingsForm';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
+import Auth from './Components/Auth';
 // import './App.scss';
 
 export default class App extends React.Component {
@@ -12,10 +13,12 @@ export default class App extends React.Component {
       <>
           <BrowserRouter>
             <Header />
-              <Routes>
-                <Route path="/" element={<Todo />} />
-                <Route path="/settings" element={<SettingsForm />} />
-              </Routes>
+              <Auth capability="read">
+                <Routes>
+                  <Route path="/" element={<Todo />} />
+                  <Route path="/settings" element={<SettingsForm />} />
+                </Routes>
+              </Auth>
             <Footer />
           </BrowserRouter>
       </>
