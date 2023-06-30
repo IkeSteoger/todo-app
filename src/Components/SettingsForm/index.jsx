@@ -49,7 +49,7 @@ const SettingsForm = () => {
       <>
         <h1 className={classes.h1}><IconSettings />Manage Settings</h1>
         <Grid style={{width: '80%', margin: 'auto'}}>
-            <Grid.Col span={6}>
+            <Grid.Col xs={12} sm={6}>
                 <Card shadow="sm" padding="lg" radius="md" withBorder>
                     <form onSubmit={handleSubmit}>
                         <Text fontSize="xl" weight="bold">Update Settings</Text>
@@ -67,7 +67,7 @@ const SettingsForm = () => {
                     </form>
                 </Card>
             </Grid.Col>
-            <Grid.Col span={6}>
+            <Grid.Col xs={12} sm={6}>
                 <When condition={show} >
                     <Card  shadow="sm" padding="lg" radius="md" withBorder>
                         <Text fontSize="xl" weight="bold">Updated Settings</Text>

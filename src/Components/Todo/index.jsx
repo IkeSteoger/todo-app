@@ -4,6 +4,7 @@ import List from '../List';
 import { Button, TextInput, Grid, Slider, Card, createStyles } from '@mantine/core';
 import { v4 as uuid } from 'uuid';
 import Auth from '../Auth';
+import axios from 'axios';
 
 const useStyles = createStyles((theme) => ({
   h1: {
@@ -29,26 +30,30 @@ const Todo = () => {
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
 
   function addItem(item) {
-    item.id = uuid();
-    item.complete = false;
-    console.log(item);
-    setList([...list, item]);
+    (async function(){
+      item.id = uuid();
+      item.complete = false;
+      await axios.post('https://api-js401.herokuapp.com/api/v1/todo', item);
+      setList([...list, item]);
+    })();
   }
 
-  function deleteItem(id) {
-    const items = list.filter( item => item.id !== id );
+  async function deleteItem(id) {
+    const items = list.filter( item => item._id !== id );
+    await axios.delete(`https://api-js401.herokuapp.com/api/v1/todo/${id}`)
     setList(items);
   }
 
-  function toggleComplete(id) {
-
+  async function toggleComplete(id) {
     const items = list.map( item => {
-      if ( item.id === id ) {
+      if ( item._id === id ) {
         item.complete = ! item.complete;
       }
       return item;
     });
-
+    // const updatedListItem = list[id]
+    // console.log(list)
+    // await axios.put(`https://api-js401.herokuapp.com/api/v1/todo/${id}`, updatedListItem);
     setList(items);
 
   }
@@ -60,29 +65,30 @@ const Todo = () => {
     // linter will want 'incomplete' added to dependency array unnecessarily. 
     // disable code used to avoid linter warning 
     // eslint-disable-next-line react-hooks/exhaustive-deps 
-  }, [list]);  
+  }, [list]);
+
+  useEffect(() => {
+    (async function(){
+      let response = await axios.get('https://api-js401.herokuapp.com/api/v1/todo');
+      let results = response.data.results;
+      setList(results);
+    })();
+  }, [])
 
   return (
     <>
       <h1 data-testid="header-h1" className={classes.h1}>To Do List: {incomplete} items pending</h1>
       {/* leave the form code inside of the Todo Component */}
       <Grid style={{width: '80%', margin: 'auto'}}>
-        <Grid.Col span={6}>
+        <Grid.Col xs={12} sm={4}>
           <Auth capability={'create'}>
             <Card shadow="sm" padding="lg" radius="md" withBorder>
               <form onSubmit={handleSubmit}>
                 <h2>Add To Do Item</h2>
-
-                <label>
                   <span>To Do Item</span>
                   <TextInput onChange={handleChange} name="text" type="text" placeholder="Item Details" />
-                </label>
-
-                <label>
                   <span>Assigned To</span>
                   <TextInput onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
-                </label>
-                <label>
                   <span>Difficulty</span>
                   <Slider
                         marks={[
@@ -93,19 +99,13 @@ const Todo = () => {
                           { value: 100 },
                         ]}
                         onChange={handleChange} defaultValue={defaultValues.difficulty} type="range" min={1} max={5} name="difficulty"/>
-                </label>
-
-                <label>
                   <Button type="submit">Add Item</Button>
-                </label>
               </form>
             </Card>
           </Auth>
         </Grid.Col>
-        <Grid.Col span={6}>
-          <Card shadow="sm" padding="lg" radius="md" withBorder >
-            <List list={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
-          </Card>
+        <Grid.Col xs={12} sm={8}>
+          <List list={list} toggleComplete={toggleComplete} deleteItem={deleteItem} />
         </Grid.Col>
         </Grid>
     </>

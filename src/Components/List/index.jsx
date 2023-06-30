@@ -1,50 +1,76 @@
 import { useContext, useState } from 'react';
 import { SettingsContext } from '../../Context/Settings';
-import { Pagination, Card, Badge, CloseButton} from '@mantine/core';
-import { When } from 'react-if';
+import { Pagination, Card, Badge, CloseButton, Text, Group } from '@mantine/core';
+import { Else, If, Then, When } from 'react-if';
 import Auth from '../Auth';
+import { AuthContext } from '../../Context/Auth';
 
-function List({list, toggleComplete, deleteItem}){
-    const { pageItems, showCompleted } = useContext(SettingsContext);
-    const [currentPage, setPage] = useState(1)
-    
-    const displayedItems = showCompleted
+function List({ list, toggleComplete, deleteItem }) {
+  const { pageItems, showCompleted } = useContext(SettingsContext);
+  const { isLoggedIn, can } = useContext(AuthContext)
+  const [currentPage, setPage] = useState(1)
+
+  const displayedItems = showCompleted
     ? list
     : list.filter((item) => !item.complete);
-    
-    const pages = Math.ceil(displayedItems.length / pageItems)
-    const firstItem = (currentPage - 1) * pageItems;
-    const lastItem = currentPage * pageItems;
-    const finalItems = displayedItems.slice(firstItem, lastItem);
 
-
-    return(
-      <>
-        {finalItems.map(item => (
-        <Card shadow="sm" padding="lg" radius="md" withBorder key={item.id} >
+  const pages = Math.ceil(displayedItems.length / pageItems)
+  const firstItem = (currentPage - 1) * pageItems;
+  const lastItem = currentPage * pageItems;
+  const finalItems = displayedItems.slice(firstItem, lastItem);
+  
+  return (
+    <>
+      {finalItems.map(item => (
+        <Card shadow="md" mb="sm" withBorder key={item._id} >
           <When condition={!item.complete}>
-            <Badge color="green" variant="filled" onClick={() => toggleComplete(item.id)}>Pending</Badge> {item.assignee}    
-            <Auth capability={'delete'}>
-              <CloseButton onClick={() => deleteItem(item.id)}/>
-            </Auth>
+            <Group position="apart">
+              <Group>
+                <If condition={isLoggedIn && can('update')}>
+                  <Then>
+                    <Badge color="green" variant="filled" onClick={() => toggleComplete(item._id)}>Pending</Badge>
+                  </Then>
+                  <Else>
+                    <Badge color="green" variant="filled">Pending</Badge>
+                  </Else>
+                </If>
+                <Text>{item.assignee}  </Text>
+              </Group>
+              <Auth capability={'delete'}>
+                <CloseButton onClick={() => deleteItem(item._id)} />
+              </Auth>
+            </Group>
             <hr />
-            <p>{item.text}</p>
-            <p><small>Difficulty: {item.difficulty}</small></p>
+            <Text align="left">{item.text}</Text>
+            <Text align="right" >Difficulty: {item.difficulty}</Text>
           </When>
           <When condition={item.complete}>
-            <Badge color="red" variant="filled" onClick={() => toggleComplete(item.id)}>Completed</Badge> {item.assignee}
-            <Auth capability={'delete'}>
-              <CloseButton onClick={() => deleteItem(item.id)}/>
-            </Auth>
+            <Group position="apart">
+              <Group>
+                <If condition={isLoggedIn && can('update')}>
+                  <Then>
+                    <Badge color="red" variant="filled" onClick={() => toggleComplete(item._id)}>Completed</Badge>
+                  </Then>
+                  <Else>
+                    <Badge color="red" variant="filled">Pending</Badge>
+                  </Else>
+                </If>
+                <Text>{item.assignee}  </Text>
+              </Group>
+              <Auth capability={'delete'}>
+                <CloseButton onClick={() => deleteItem(item._id)} />
+              </Auth>
+            </Group>
             <hr />
-            <p>{item.text}</p>
-            <p><small>Difficulty: {item.difficulty}</small></p>
+            <Text align="left">{item.text}</Text>
+            <Text align="right" >Difficulty: {item.difficulty}</Text>
           </When>
         </Card>
       ))}
+      
       <Pagination value={currentPage} onChange={setPage} total={pages} />
-      </>
-    )
+    </>
+  )
 }
 
 export default List;
